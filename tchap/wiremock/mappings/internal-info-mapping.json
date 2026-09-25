@@ -1,0 +1,24 @@
+{
+  "name": "Internal Info Mapping",
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/_matrix/identity/api/v1/internal-info",
+    "queryParameters": {
+      "medium": {
+        "equalTo": "email"
+      },
+      "address": {
+        "matches": ".*"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": "{\n  \"hs\": \"{{#if (matches request.query.address '.*(@numerique[.]gouv[.]fr|@tchapgouv[.]com|@beta[.]gouv[.]fr|@tchap[.]incubateur[.]net)$|.*@(not[.])?invited[.]externe[.]com.*')}}tchapgouv.com{{else}}wrong.server.com{{/if}}\",\n  \"requires_invite\": {{matches request.query.address '.*@(not[.])?invited[.]externe[.]com.*'}},\n  \"invited\": {{matches request.query.address '.*@invited[.]externe[.]com.*'}}\n}",
+    "headers": {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
+    }
+  },
+  "priority": 100
+}
