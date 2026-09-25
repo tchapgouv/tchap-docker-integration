@@ -46,8 +46,8 @@ if [[ ! -e .env  ]]; then
         mv ${DOMAIN}+1-key.pem data/ssl/privkey.pem
         cp "$(mkcert -CAROOT)"/rootCA.pem data/ssl/ca-certificates.crt
         # borrow letsencrypt's SSL config
-        curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx.conf > "data/ssl/options-ssl-nginx.conf"
-        curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot/certbot/ssl-dhparams.pem > "data/ssl/ssl-dhparams.pem"
+        curl -s https://raw.githubusercontent.com/certbot/certbot/refs/heads/main/certbot/src/certbot/_internal/plugins/nginx/tls_configs/options-ssl-nginx.conf > "data/ssl/options-ssl-nginx.conf"
+        curl -s https://raw.githubusercontent.com/certbot/certbot/refs/heads/main/certbot/src/certbot/ssl-dhparams.pem > "data/ssl/ssl-dhparams.pem"
         success=true
     else
         read -p "Use letsencrypt for SSL? [y/n] " use_letsencrypt
