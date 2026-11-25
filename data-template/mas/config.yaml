@@ -152,6 +152,30 @@ upstream_oauth2:
           template: "{{ user.email }}"
           set_email_verification: always
 
+    # MonCompte: the upstream provider that will replace ProConnect.
+    # During the transition both providers are configured side by side and
+    # users are reconciled by email address.
+    - id: "01M63MVJJ4PTVQDEY99QJGTX14"
+      human_name: MonCompte-mock
+      issuer: "https://sso.tchapgouv.com/realms/moncompte-mock"
+      token_endpoint_auth_method: client_secret_basic
+      client_id: "matrix-authentication-service"
+      client_secret: "M0nC0mpt3S3cr3tM0ckTch4p2025E2E"
+      scope: "openid profile email"
+      claims_imports:
+        skip_confirmation: true
+        localpart:
+          action: require
+          template: "{{ user.email | email_to_mxid_localpart }}"
+          on_conflict: add
+        displayname:
+          action: require
+          template: "{{ user.email | email_to_display_name }}"
+        email:
+          action: require
+          template: "{{ user.email }}"
+          set_email_verification: always
+
 telemetry:
   tracing:
   #   # List of propagators to use for extracting and injecting trace contexts

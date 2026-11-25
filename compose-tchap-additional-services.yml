@@ -55,6 +55,8 @@ services:
       - KC_DB_PASSWORD=postgres
     volumes:
       - ${VOLUME_PATH}/tchap/keycloak/proconnect-mock-realm.json:/opt/keycloak/data/import/proconnect-mock-realm.json
+      # MonCompte: second upstream provider realm, replacing ProConnect
+      - ${VOLUME_PATH}/tchap/keycloak/moncompte-mock-realm.json:/opt/keycloak/data/import/moncompte-mock-realm.json
     command: "start-dev --import-realm --hostname=${KEYCLOAK_HOSTNAME:-localhost}"
     networks:
       - backend
